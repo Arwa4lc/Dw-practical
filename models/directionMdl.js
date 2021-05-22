@@ -1,26 +1,53 @@
 const mongoose = require("mongoose");
-const pagination = require("mongoose-paginate-v2");
 
-const dataWarehouse = mongoose.Schema({
-  name: {
-    type: String,
-  },
-  location: {
-    type: {
+const dataWarehouse = mongoose.Schema(
+  {
+    currentAddress: {
       type: String,
-      required: true,
     },
-    coordinates: [
-      // long came 1st
-      {
-        type: Number,
+    currentLocation: {
+      type: {
+        type: String,
+        default: "Point",
         required: true,
       },
-    ],
+      coordinates: [
+        // long came 1st
+        {
+          type: Number,
+          required: true,
+        },
+      ],
+    },
+    destinationAddress: {
+      type: String,
+    },
+    destination: {
+      type: {
+        type: String,
+        default: "Point",
+        required: true,
+      },
+      coordinates: [
+        // long came 1st
+        {
+          type: Number,
+          required: true,
+        },
+      ],
+    },
+    mode: {
+      type: String,
+      enum: ["driving", "walking", "bicycling", "transit"],
+      default: "driving",
+    },
+    departure_time: {
+      type: String,
+      default: "now",
+    },
   },
-});
-
-dataWarehouse.plugin(pagination);
+  { timestamps: true }
+);
 
 const Data = mongoose.model("Data", dataWarehouse);
 exports.Data = Data;
