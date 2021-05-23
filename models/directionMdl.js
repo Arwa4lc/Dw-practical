@@ -48,6 +48,12 @@ const dataWarehouse = mongoose.Schema(
       type: String,
       default: "now",
     },
+    distance: {
+      type: String,
+    },
+    duration: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

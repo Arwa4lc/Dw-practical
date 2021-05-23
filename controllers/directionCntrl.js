@@ -30,6 +30,10 @@ exports.postDirection = async (req, res, next) => {
             destination: {
               coordinates: [destination.lng, destination.lat],
             },
+            mode: req.body.mode,
+            departure_time: req.body.departure_time,
+            duration,
+            distance,
           }).save();
 
           res.status(200).json({
