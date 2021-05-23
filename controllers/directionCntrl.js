@@ -1,5 +1,5 @@
 const https = require("https");
-const { Data } = require("../models/directionMdl");
+const { Direction } = require("../models/directionMdl");
 
 exports.postDirection = async (req, res, next) => {
   const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${req.body.origin}&destination=${req.body.destination}&mode=${req.body.mode}&departure_time=${req.body.departure_time}&key=${process.env.KEY}`;
@@ -21,7 +21,7 @@ exports.postDirection = async (req, res, next) => {
           let distance = directions.routes[0].legs[0].distance.text;
           let duration = directions.routes[0].legs[0].duration.text;
 
-          let dw = await new Data({
+          let dw = await new Direction({
             currentAddress,
             currentLocation: {
               coordinates: [currentLocation.lng, currentLocation.lat],

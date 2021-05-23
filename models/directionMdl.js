@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const mongooseAutoIncrement = require("mongoose-auto-increment");
+
+mongooseAutoIncrement.initialize(mongoose.connection);
 
 const dataWarehouse = mongoose.Schema(
   {
@@ -49,5 +52,10 @@ const dataWarehouse = mongoose.Schema(
   { timestamps: true }
 );
 
-const Data = mongoose.model("Data", dataWarehouse);
-exports.Data = Data;
+dataWarehouse.plugin(mongooseAutoIncrement.plugin, {
+  model: "Direction",
+  startAt: 1,
+});
+
+const Direction = mongoose.model("Direction", dataWarehouse);
+exports.Direction = Direction;
